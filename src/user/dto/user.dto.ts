@@ -1,9 +1,14 @@
-import { IsNumber } from 'class-validator';
+import { IsNumber, IsString } from 'class-validator';
+import { SubscriptionEnum } from '../enum/subscription.enum';
+import { RoleEnum } from '../enum/role.enum';
 
 export class UserDto {
   @IsNumber()
   id: number;
 
-  @IsNumber()
-  role: number;
+  @IsString()
+  role: RoleEnum;
+
+  @IsString()
+  subscription: SubscriptionEnum;
 }

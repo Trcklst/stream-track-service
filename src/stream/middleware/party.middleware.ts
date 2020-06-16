@@ -2,7 +2,7 @@ import {
   BadRequestException,
   HttpException,
   HttpService,
-  Injectable,
+  Injectable, InternalServerErrorException,
   NestMiddleware,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
@@ -29,7 +29,10 @@ export class PartyMiddleware implements NestMiddleware {
         }).toPromise();
       req['party'] = result.data;
     } catch (e) {
-      throw new HttpException(e.response.data, e.response.status);
+      if(e.response)
+        throw new HttpException(e.response.data, e.response.status);
+      else
+        throw new InternalServerErrorException('Server down');
     }
 
     next();

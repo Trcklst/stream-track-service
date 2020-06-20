@@ -9,7 +9,6 @@ async function bootstrap() {
   const client = new Eureka({
     instance: {
       app: 'track-stream-service',
-      instanceId: `track-stream-service:${configuration.app.port}`,
       hostName: configuration.eurekaClient.instance.hostName,
       port: {
         '$': configuration.app.port,
@@ -24,6 +23,7 @@ async function bootstrap() {
       }
     },
     eureka: {
+      preferIpAddress: true,
       host: configuration.eurekaClient.eureka.host,
       port: configuration.eurekaClient.eureka.port,
       servicePath: '/eureka/apps/',
